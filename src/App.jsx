@@ -30,6 +30,9 @@ function App() {
     }
   }
 
+  const handleAbonelikSil = (id) => {
+    setAbonelikler([...abonelikler.filter((abone) => abone.id !== id)])
+  }
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -50,6 +53,7 @@ function App() {
         />
         <SubscriptionList
           abonelikler={abonelikler}
+          handleAbonelikSil={handleAbonelikSil}
         />
       </div>
     </div>

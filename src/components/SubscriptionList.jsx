@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SubscriptionList({ abonelikler }) {
+function SubscriptionList({ abonelikler, handleAbonelikSil }) {
     return (
         <div className='w-2/3 bg-gray-800 p-4 flex flex-col gap-2 rounded-xl'>
             {
@@ -13,6 +13,7 @@ function SubscriptionList({ abonelikler }) {
                         <p><span className='font-semibold'>Ücret:</span> {abonelik.aboneFiyati}</p>
                         <p><span className='font-semibold'>Son Ödeme Tarihi:</span> {abonelik.sonOdemeTarihi}</p>
                         <p><span className='font-semibold'>Kategori:</span> {abonelik.kategori}</p>
+                        <button onClick={() => handleAbonelikSil(abonelik.id)} className='bg-red-600, text-white, rounded, hover:bg-red-700'>Sil</button>
                     </div>
                 ))
             }
