@@ -1,13 +1,13 @@
 import React from 'react'
 
-function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle }) {
+function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle, secilenKategori, setSecilenKategori, kategoriler }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     return (
-        <div className='w-1/3 bg-gray-800 p-4 rounded-xl'>
+        <div className='w-1/3 h-[60vh] bg-gray-800 p-4 rounded-xl'>
             <form onSubmit={handleSubmit} action="" className='flex flex-col gap-4'>
                 <input
                     type="text"
@@ -47,6 +47,16 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
                 >
                     Ekle
                 </button>
+                <select
+                    className="mb-4 p-2 rounded bg-gray-700 border border-gray-500 text-white"
+                    value={secilenKategori}
+                    onChange={(e) => setSecilenKategori(e.target.value)}
+                >
+                    <option value="">Tüm Kategoriler</option>
+                    {kategoriler.map((katego, i) => (
+                        <option key={i} value={katego}>{katego}</option>
+                    ))}
+                </select>
             </form>
         </div>
     )
