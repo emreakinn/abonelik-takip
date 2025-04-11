@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle, secilenKategori, setSecilenKategori, kategoriler, duzenlenenAbonelik, setDuzenlenenAbonelik, aboneligiGuncelle }) {
+function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle, secilenKategori, setSecilenKategori, kategoriler, duzenlenenAbonelik, setDuzenlenenAbonelik, aboneligiGuncelle, arama, setArama }) {
 
     useEffect(() => {
         if (duzenlenenAbonelik) {
@@ -28,7 +28,6 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
             handleEkle(yeniAbonelik);
         }
 
-        // Formu temizle
         setAboneAdi("");
         setAboneFiyati("");
         setSonOdemeTarihi("");
@@ -37,7 +36,7 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
     };
 
     return (
-        <div className='w-1/3 h-[60vh] bg-gray-800 p-4 rounded-xl'>
+        <div className='w-1/3 h-[65vh] bg-gray-800 p-4 rounded-xl'>
             <form onSubmit={formuGonder} action="" className='flex flex-col gap-4'>
                 <input
                     type="text"
@@ -77,6 +76,13 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
                 >
                     {duzenlenenAbonelik ? "Kaydet" : "Ekle"}
                 </button>
+                <input
+                    type='text'
+                    className="mb-4 p-2 rounded bg-gray-700 border border-gray-500 text-white"
+                    placeholder='Ara...'
+                    value={arama}
+                    onChange={(e) => setArama(e.target.value)}
+                />
                 <select
                     className="mb-4 p-2 rounded bg-gray-700 border border-gray-500 text-white"
                     value={secilenKategori}

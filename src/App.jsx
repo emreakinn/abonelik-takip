@@ -13,7 +13,8 @@ function App() {
   const [kategori, setKategori] = useState('')
   const [abonelikler, setAbonelikler] = useState([])
   const [secilenKategori, setSecilenKategori] = useState('')
-  const [duzenlenenAbonelik, setDuzenlenenAbonelik] = useState(null);
+  const [duzenlenenAbonelik, setDuzenlenenAbonelik] = useState(null)
+  const [arama, setArama] = useState('')
 
 
 
@@ -40,7 +41,9 @@ function App() {
     setAbonelikler([...abonelikler.filter((abone) => abone.id !== id)])
   }
 
-  const filteredAbonelikler = secilenKategori ? abonelikler.filter((abone) => abone.kategori === secilenKategori) : abonelikler
+  const filteredAbonelikler = abonelikler
+    .filter((abone) => (secilenKategori ? abone.kategori === secilenKategori : true))
+    .filter((abone) => abone.aboneAdi.toLowerCase().includes(arama.toLowerCase()));
 
   const toplamUcret = abonelikler.reduce((acc, abonelik) => acc + parseFloat(abonelik.aboneFiyati), 0)
 
@@ -49,9 +52,9 @@ function App() {
     setDuzenlenenAbonelik(null);
   }
 
-  const kategoriToplam = filteredAbonelikler.reduce((acc, abonelik) => {
-    return acc + parseFloat(abonelik.aboneFiyati);
-  }, 0);
+  const kategoriToplam = abonelikler
+    .filter((abone) => (secilenKategori ? abone.kategori === secilenKategori : true))
+    .reduce((acc, abonelik) => acc + Number(abonelik.aboneFiyati), 0);
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -80,6 +83,8 @@ function App() {
           duzenlenenAbonelik={duzenlenenAbonelik}
           setDuzenlenenAbonelik={setDuzenlenenAbonelik}
           aboneligiGuncelle={aboneligiGuncelle}
+          arama={arama}
+          setArama={setArama}
         />
         <SubscriptionList
           abonelikler={filteredAbonelikler}
