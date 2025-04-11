@@ -15,6 +15,8 @@ function App() {
   const [secilenKategori, setSecilenKategori] = useState('')
   const [duzenlenenAbonelik, setDuzenlenenAbonelik] = useState(null);
 
+
+
   const handleEkle = () => {
     if (aboneAdi && aboneFiyati && sonOdemeTarihi && kategori) {
       const yeniAbonelik = {
@@ -47,14 +49,19 @@ function App() {
     setDuzenlenenAbonelik(null);
   }
 
+  const kategoriToplam = filteredAbonelikler.reduce((acc, abonelik) => {
+    return acc + parseFloat(abonelik.aboneFiyati);
+  }, 0);
+
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       <h1 className="text-3xl font-bold text-center py-10">
         ABONELİK TAKİP UYGULAMASI
       </h1>
 
-      <div className='text-xl text-center font-bold text-green-400 my-4'>
-        Toplam Aylık Ücret: {toplamUcret} TL
+      <div className='text-xl flex gap-20 justify-center font-bold text-green-400 my-4'>
+        <span>Toplam Aylık Ücret: {toplamUcret} TL</span>
+        <span>Toplam Aylık Kategori Ücreti: {kategoriToplam} TL</span>
       </div>
       <div className="container mx-auto flex gap-2">
         <SubscriptionForm

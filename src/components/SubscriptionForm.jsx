@@ -25,7 +25,7 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
         if (duzenlenenAbonelik) {
             aboneligiGuncelle(yeniAbonelik);
         } else {
-            abonelikEkle(yeniAbonelik);
+            handleEkle(yeniAbonelik);
         }
 
         // Formu temizle
