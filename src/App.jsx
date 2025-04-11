@@ -13,6 +13,7 @@ function App() {
   const [kategori, setKategori] = useState('')
   const [abonelikler, setAbonelikler] = useState([])
   const [secilenKategori, setSecilenKategori] = useState('')
+  const [duzenlenenAbonelik, setDuzenlenenAbonelik] = useState(null);
 
   const handleEkle = () => {
     if (aboneAdi && aboneFiyati && sonOdemeTarihi && kategori) {
@@ -41,6 +42,11 @@ function App() {
 
   const toplamUcret = abonelikler.reduce((acc, abonelik) => acc + parseFloat(abonelik.aboneFiyati), 0)
 
+  const aboneligiGuncelle = (guncellenenAbonelik) => {
+    setAbonelikler(abonelikler.map(abone => abone.id === guncellenenAbonelik.id ? guncellenenAbonelik : abone))
+    setDuzenlenenAbonelik(null);
+  }
+
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       <h1 className="text-3xl font-bold text-center py-10">
@@ -64,10 +70,14 @@ function App() {
           secilenKategori={secilenKategori}
           setSecilenKategori={setSecilenKategori}
           kategoriler={kategoriler}
+          duzenlenenAbonelik={duzenlenenAbonelik}
+          setDuzenlenenAbonelik={setDuzenlenenAbonelik}
+          aboneligiGuncelle={aboneligiGuncelle}
         />
         <SubscriptionList
           abonelikler={filteredAbonelikler}
           handleAbonelikSil={handleAbonelikSil}
+          setDuzenlenenAbonelik={setDuzenlenenAbonelik}
         />
       </div>
 

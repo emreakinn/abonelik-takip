@@ -1,14 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle, secilenKategori, setSecilenKategori, kategoriler }) {
+function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, sonOdemeTarihi, setSonOdemeTarihi, kategori, setKategori, handleEkle, secilenKategori, setSecilenKategori, kategoriler, duzenlenenAbonelik, setDuzenlenenAbonelik, aboneligiGuncelle }) {
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (duzenlenenAbonelik) {
+            setAboneAdi(duzenlenenAbonelik.aboneAdi);
+            setAboneFiyati(duzenlenenAbonelik.aboneFiyati);
+            setSonOdemeTarihi(duzenlenenAbonelik.sonOdemeTarihi);
+            setKategori(duzenlenenAbonelik.kategori);
+        }
+    }, [duzenlenenAbonelik]);
+
+    const formuGonder = (e) => {
         e.preventDefault();
+
+        const yeniAbonelik = {
+            id: duzenlenenAbonelik ? duzenlenenAbonelik.id : Date.now(),
+            aboneAdi,
+            aboneFiyati,
+            sonOdemeTarihi,
+            kategori
+        };
+
+        if (duzenlenenAbonelik) {
+            aboneligiGuncelle(yeniAbonelik);
+        } else {
+            abonelikEkle(yeniAbonelik);
+        }
+
+        // Formu temizle
+        setAboneAdi("");
+        setAboneFiyati("");
+        setSonOdemeTarihi("");
+        setKategori("Eğlence");
+        setDuzenlenenAbonelik(null);
     };
 
     return (
         <div className='w-1/3 h-[60vh] bg-gray-800 p-4 rounded-xl'>
-            <form onSubmit={handleSubmit} action="" className='flex flex-col gap-4'>
+            <form onSubmit={formuGonder} action="" className='flex flex-col gap-4'>
                 <input
                     type="text"
                     className='bg-gray-700 p-2 rounded text-white'
@@ -42,10 +72,10 @@ function SubscriptionForm({ aboneAdi, setAboneAdi, aboneFiyati, setAboneFiyati, 
                     <option value="Diğer">Diğer</option>
                 </select>
                 <button
-                    className='bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded'
-                    onClick={handleEkle}
+                    type="submit"
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
                 >
-                    Ekle
+                    {duzenlenenAbonelik ? "Kaydet" : "Ekle"}
                 </button>
                 <select
                     className="mb-4 p-2 rounded bg-gray-700 border border-gray-500 text-white"
